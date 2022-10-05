@@ -8,21 +8,22 @@ import re
 
 # Make the app
 load_dotenv()
+
 app = App(token=os.environ.get("SLACK_BOT_TOKEN"))
-url = "https://piazza.com/class/%s/post/" % os.environ.get("COURSE_ID")
+
+base_url = "https://piazza.com/class/%s" % os.environ.get("COURSE_ID")
+posts_url = f"{base_url}/post/" 
 
 # Listens to incoming messages that contain "hello"
-# To learn available listener arguments,
-# visit https://slack.dev/bolt-python/api-docs/slack_bolt/kwargs_injection/args.html
+# To learn available listener arguments, visit 
+# https://slack.dev/bolt-python/api-docs/slack_bolt/kwargs_injection/args.html
 @app.message(re.compile("(@\d*)"))
-# @app.message(re.compile("(hi|hello|hey)"))
-def message_hello(say, context):
+def post_link(say, context):
     for match in context['matches']:
         number = match.replace('@','')
-        post_url = url + number
+        url = posts_url + number
         # say() sends a message to the channel where the event was triggered
-        say(f"The number is {number}. the url is: {post_url}")
-
+        say(url)
 
 # Run the app
 if __name__ == "__main__":

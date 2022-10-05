@@ -1,7 +1,10 @@
-# piazza-bot
-Slack bot that expands piazza post numbers to include a link to the actual
+# PiazzaBot
+PiazzaBot is a simple slack bot that makes discussing posts on Piazza easier.
+When a post is mentioned by ID, PiazzaBot will respond with a link to that
 post.
 
-## Dependencies
-Slack Bolt
-python dotenv
+## Installation
+[to do]
+
+## Development
+PiazzaBot is built using [Slack's Bolt framework]{https://github.com/SlackAPI/bolt-python}.
