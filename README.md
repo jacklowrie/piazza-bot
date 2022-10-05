@@ -1,2 +1,7 @@
 # piazza-bot
-Expands piazza post numbers to include the link to the actual post.
+Slack bot that expands piazza post numbers to include a link to the actual
+post.
+
+## Dependencies
+Slack Bolt
+python dotenv

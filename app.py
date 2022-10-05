@@ -14,13 +14,13 @@ url = "https://piazza.com/class/%s/post/" % os.environ.get("COURSE_ID")
 # Listens to incoming messages that contain "hello"
 # To learn available listener arguments,
 # visit https://slack.dev/bolt-python/api-docs/slack_bolt/kwargs_injection/args.html
-@app.message(re.compile("([^@]\d*)"))
+@app.message(re.compile("(@\d*)"))
 # @app.message(re.compile("(hi|hello|hey)"))
 def message_hello(say, context):
-    number = context['matches'][0]
+    number = context['matches'][0].replace('@','')
     post_url = url + number
     # say() sends a message to the channel where the event was triggered
-    say(f"{post_url}")
+    say(f"The number is {number}. the url is: {post_url}")
 
 
 # Run the app
