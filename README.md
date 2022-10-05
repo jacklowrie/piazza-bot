@@ -7,4 +7,4 @@ post.
 [to do]
 
 ## Development
-PiazzaBot is built using [Slack's Bolt framework]{https://github.com/SlackAPI/bolt-python}.
+PiazzaBot is built using [Slack's Bolt framework](https://github.com/SlackAPI/bolt-python).
