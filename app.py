@@ -17,7 +17,8 @@ posts_url = f"{base_url}/post/"
 # Listens to incoming messages that contain "hello"
 # To learn available listener arguments, visit 
 # https://slack.dev/bolt-python/api-docs/slack_bolt/kwargs_injection/args.html
-@app.message(re.compile("@(\d+)"))
+# https://regex101.com/r/eMmguY/1
+@app.message(re.compile(r"@(\d+\b)"))
 def post_link(say, context):
     for match in context['matches']:
         url = posts_url + match
