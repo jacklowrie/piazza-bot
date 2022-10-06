@@ -17,4 +17,4 @@ GitHub for now, and keep track of all to-do and in-progress via issues.
 
 
 
-**Note**: I am not affiliated with Piazza in any way.
+***Note**: I am not affiliated with Piazza in any way.
