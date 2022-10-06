@@ -8,3 +8,8 @@ post.
 
 ## Development
 PiazzaBot is built using [Slack's Bolt framework](https://github.com/SlackAPI/bolt-python).
+
+
+## Contributing
+Still thinking about the ideal workflow, however I'd like to keep PM on
+GitHub for now, and keep track of all to-do and in-progress via issues.
