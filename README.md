@@ -13,11 +13,11 @@ we need to do two things:
 
 ### Register the app
 1. _[Register a new app](https://api.slack.com/apps?new_app=1) for your
-workspace._ Choose to register the app from manifest, then copy & paste
-everything from the `slack-manifest.json` file in this repo into the window
-(make sure it's the `json` window and not the `yaml` window). Click through
-and confirm the app. This should take you to the "basic information" settings
-page.
+workspace._ Open that link (in a new window/tab). Choose to register the app
+from manifest, then copy & paste everything from the `slack-manifest.json`
+file in this repo into the window (make sure it's the `json` window and not
+the `yaml` window). Click through and confirm the app. This should take you
+to the "basic information" settings page.
 2. _Install to workspace._ Click the install to workspace button.
 3. _Add the piazza icon._ From the "basic information" page, at the bottom
 under "display information", upload the icon from this repo as the app icon.
@@ -37,10 +37,8 @@ required modules from `requirements.txt`.
 corresponding tokens you noted when registering the app.
 4. _Run the app._ Run the app! `python app.py`
 
----
 ## Development
-PiazzaBot is built using [Slack's Bolt framework]
-(https://github.com/SlackAPI/bolt-python).
+PiazzaBot is built using [Slack's Bolt framework](https://github.com/SlackAPI/bolt-python).
 
 Because the app uses socket mode, it isn't really possible to have multiple
 developers working on the bot in the same workspace. So, the best way to set
@@ -48,7 +46,7 @@ up this app for local development is to:
 1. create a test workspace (so changes don't interrupt a real workspace)
 2. Follow the installation instructions above, but register the app to that
 workspace instead.
----
+
 ## Contributing
 Still thinking about the ideal workflow, however I'd like to keep PM on
 GitHub for now. Keep track of all proposed, to-do, and in-progress tasks
