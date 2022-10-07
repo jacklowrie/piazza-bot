@@ -11,7 +11,7 @@ we need to do two things:
 2. Set the app up on your host.
 3. Once PiazzaBot is up and running, add it to any channel you want to use in.
 
-### Register the app
+### Register the app (3-5 min)
 1. _[Register a new app](https://api.slack.com/apps?new_app=1) for your
 workspace._ Open that link (in a new window/tab). Choose to register the app
 from manifest, then copy & paste everything from the `slack-manifest.json`
@@ -27,7 +27,7 @@ the app up on your host.
 5. _save bot token._ Finally, note the bot token. In the left-side nav, click
 into "Features"->"Oauth & Permissions", and note the Bot User OAuth Token.
 
-### Host the app
+### Host the app (3-5 min)
 1. _Clone this repo._ This is the easiest way to handle updates, since you
 can just pull from `main` and restart the app whenever there's an update.
 Alternatively, if you need to modify the app for your workspace, fork instead.
@@ -35,7 +35,9 @@ Alternatively, if you need to modify the app for your workspace, fork instead.
 required modules from `requirements.txt`.
 3. _Add tokens._ create a `.env` file from `.env-sample` and add the
 corresponding tokens you noted when registering the app.
-4. _Run the app._ Run the app! `python app.py`
+4. _Add Course ID._ Go to your course's dashboard (if you're viewing a question,
+click the logo). add the long alphanumeric string to your `.env` as the `COURSE_ID`.
+5. _Run the app._ Run the app! `python app.py`
 
 ## Development
 PiazzaBot is built using [Slack's Bolt framework](https://github.com/SlackAPI/bolt-python).
