@@ -1,2 +1,2 @@
-slack-bolt
+slack_bolt
 python-dotenv
