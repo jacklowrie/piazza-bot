@@ -42,8 +42,15 @@ corresponding tokens you noted when registering the app.
 click the logo). add the long alphanumeric string to your `.env` as the `COURSE_ID`.
 5. _Run the app._ Run the app! `python app.py`
 
+## Contributing
+Still thinking about the ideal workflow, however I'd like to keep PM on
+GitHub for now. If you'd like to contribute, first of all, _thank you_!
+Please first discuss the change you wish to make with the owners of this
+repository, ideally via issue, before making a change or opening a pull request.
+
 ## Development
 PiazzaBot is built using [Slack's Bolt framework](https://github.com/SlackAPI/bolt-python).
+As such, most developer documentation can be found there.
 
 Because the app uses socket mode, it isn't really possible to have multiple
 developers working on the bot in the same workspace. So, the best way to set
@@ -52,9 +59,3 @@ up this app for local development is to:
 2. Follow the installation instructions above, but register the app to that
 workspace instead. Thanks to socket mode, you can run the app on your computer
 and it will work in that test workspace!
-
-## Contributing
-Still thinking about the ideal workflow, however I'd like to keep PM on
-GitHub for now. If you'd like to contribute, first of all, _thank you_!
-Please first discuss the change you wish to make with the owners of this
-repository, ideally via issue, before making a change or opening a pull request.
