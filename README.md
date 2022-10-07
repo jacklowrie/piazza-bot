@@ -47,7 +47,8 @@ developers working on the bot in the same workspace. So, the best way to set
 up this app for local development is to:
 1. create a test workspace (so changes don't interrupt a real workspace)
 2. Follow the installation instructions above, but register the app to that
-workspace instead.
+workspace instead. Thanks to socket mode, you can run the app on your computer
+and it will work in that test workspace!
 
 ## Contributing
 Still thinking about the ideal workflow, however I'd like to keep PM on
