@@ -55,5 +55,7 @@ and it will work in that test workspace!
 
 ## Contributing
 Still thinking about the ideal workflow, however I'd like to keep PM on
-GitHub for now. Keep track of all proposed, to-do, and in-progress tasks
-via issues.
+GitHub for now. If you'd like to contribute (first of all, _thank you_),
+please first discuss the change you wish to make via issue, or any other
+method with the owners of this repository before making a change or opening
+a pull request.
