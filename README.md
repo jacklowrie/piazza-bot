@@ -57,4 +57,4 @@ and it will work in that test workspace!
 Still thinking about the ideal workflow, however I'd like to keep PM on
 GitHub for now. If you'd like to contribute, first of all, _thank you_!
 Please first discuss the change you wish to make with the owners of this
-repository via issue, before making a change or opening a pull request.
+repository, ideally via issue, before making a change or opening a pull request.
