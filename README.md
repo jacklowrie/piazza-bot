@@ -3,6 +3,9 @@ PiazzaBot is a simple slack bot that makes discussing posts on Piazza easier.
 When a post is mentioned by ID, PiazzaBot will respond with a link to that
 post.
 
+***Note**: I am not affiliated with or endorsed by Piazza in any way. Neither
+is this bot.
+
 ## Installation (adding to your workspace, and updates)
 This app isn't registered through the slack app directory. For now, it's meant
 to be used by one workspace per install/instance. To add to your workspace,
@@ -54,9 +57,3 @@ and it will work in that test workspace!
 Still thinking about the ideal workflow, however I'd like to keep PM on
 GitHub for now. Keep track of all proposed, to-do, and in-progress tasks
 via issues.
-
-
-
-
-***Note**: I am not affiliated with or endorsed by Piazza in any way. Neither
-is this bot.
