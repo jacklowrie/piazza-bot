@@ -19,11 +19,13 @@ posts_url = f"{base_url}/post/"
 # https://slack.dev/bolt-python/api-docs/slack_bolt/kwargs_injection/args.html
 # https://regex101.com/r/eMmguY/1
 @app.message(re.compile(r"@(\d+\b)"))
-def post_link(say, context):
+def post_link(say, context, event):
     for match in context['matches']:
         url = posts_url + match
+
+        thread_ts = event.get("thread_ts", None)
         # say() sends a message to the channel where the event was triggered
-        say(url)
+        say(text=url, thread_ts=thread_ts)
 
 # Run the app
 if __name__ == "__main__":
