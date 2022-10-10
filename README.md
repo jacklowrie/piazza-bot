@@ -5,7 +5,7 @@ post.
 
 <img src="https://github.com/jacklowrie/piazza-bot/blob/main/demo.gif" width=100% height=100%>
 
-***Note**: I am not affiliated with or endorsed by Piazza or Slack in any way. Neither
+**\*Note**: I am not affiliated with or endorsed by Piazza or Slack in any way. Neither
 is this bot.
 
 ## Installation (adding to your workspace, and updates)
@@ -33,11 +33,15 @@ the app up on your host.
 into "Features"->"Oauth & Permissions", and note the Bot User OAuth Token.
 
 ### Host the app (3-5 min)
+
 1. _Clone this repo._ This is the easiest way to handle updates, since you
 can just pull from `main` and restart the app whenever there's an update.
 Alternatively, if you need to modify the app for your workspace, fork instead.
 2. _Install dependencies._ Set up a virtual environment, and install the
-required modules from `requirements.txt`.
+required modules from `requirements.txt`. There's an install script `install.sh`
+which contains the commands you'll need to run. Either run each command
+individually, or try running the script **make sure python3 is installed on
+your systembefore running**.
 3. _Add tokens._ create a `.env` file from `.env-sample` and add the
 corresponding tokens you noted when registering the app.
 4. _Add Course ID._ Go to your course's dashboard (if you're viewing a question,
