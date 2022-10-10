@@ -53,7 +53,9 @@ Still thinking about the ideal workflow, however I'd like to keep PM on
 GitHub for now. If you'd like to contribute, first of all, _thank you_!
 Please first discuss the change you wish to make with the owners of this
 repository, ideally via issue, before making a change or opening a pull request.
-Take a look at the [contribution guidelines for more.](https://github.com/jacklowrie/piazza-bot/blob/main/CONTRIBUTING.md)
+Take a look at the
+[contribution guidelines ](https://github.com/jacklowrie/piazza-bot/blob/main/CONTRIBUTING.md)
+for more.
 
 ## Development
 PiazzaBot is built using [Slack's Bolt framework](https://github.com/SlackAPI/bolt-python).
