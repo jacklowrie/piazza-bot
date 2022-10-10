@@ -16,7 +16,6 @@ we need to do two things:
 2. Set the app up on your host.
 3. Once PiazzaBot is up and running, add it to any channel you want to use in.
 
->>>>>>> main
 ### Register the app (3-5 min)
 1. _[Register a new app](https://api.slack.com/apps?new_app=1) for your
 workspace._ Open that link (in a new window/tab). Choose to register the app
