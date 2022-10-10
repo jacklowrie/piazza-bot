@@ -5,7 +5,7 @@ post.
 
 <img src="https://github.com/jacklowrie/piazza-bot/blob/main/demo.gif" width=100% height=100%>
 
-***Note**: I am not affiliated with or endorsed by Piazza or Slack in any way. Neither
+**\*Note**: I am not affiliated with or endorsed by Piazza or Slack in any way. Neither
 is this bot.
 
 ## Installation (adding to your workspace, and updates)
@@ -35,7 +35,8 @@ into "Features"->"Oauth & Permissions", and note the Bot User OAuth Token.
 
 ### Host the app (3-5 min)
 The easy way is to run `./install.sh`, which is a script in this repo that
-automates steps 2-4 below.
+automates steps 2-4 below. **make sure python3 is installed on your system
+before running**.
 1. _Clone this repo._ This is the easiest way to handle updates, since you
 can just pull from `main` and restart the app whenever there's an update.
 Alternatively, if you need to modify the app for your workspace, fork instead.
