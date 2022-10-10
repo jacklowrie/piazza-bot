@@ -34,6 +34,8 @@ the app up on your host.
 into "Features"->"Oauth & Permissions", and note the Bot User OAuth Token.
 
 ### Host the app (3-5 min)
+The easy way is to run `./install.sh`, which is a script in this repo that
+automates steps 2-4 below.
 1. _Clone this repo._ This is the easiest way to handle updates, since you
 can just pull from `main` and restart the app whenever there's an update.
 Alternatively, if you need to modify the app for your workspace, fork instead.
