@@ -24,8 +24,9 @@ if appropriate).
 I'm working my way towards a more traditional GitFlow.
 - `develop` is the work horse. As features are completed, they're merged into
 `develop`. When a release is ready, a PR is opened from `develop` to `main`.
-- `main` doesn't get commits directly, but instead gets pull-requests from
-`develop`. These PRs should include fully-functional features.
+- `main` doesn't get commits directly (beyond docs/github config etc), but 
+instead gets pull-requests from `develop`. These PRs should include 
+fully-functional features.
 - `feature-[*]` Branches with "feature" prepended are feature branches. Most work
 happens in these.
 - I'm really hoping we never need a `hotfix`, but if we do, we'll make it then.
