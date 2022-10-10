@@ -6,6 +6,8 @@ post.
 ***Note**: I am not affiliated with or endorsed by Piazza in any way. Neither
 is this bot.
 
+![](https://github.com/jacklowrie/piazza-bot/blob/main/demo.gif)
+
 ## Installation (adding to your workspace, and updates)
 This app isn't registered through the slack app directory. For now, it's meant
 to be used by one workspace per install/instance. To add to your workspace,
