@@ -6,7 +6,7 @@ post.
 ***Note**: I am not affiliated with or endorsed by Piazza in any way. Neither
 is this bot.
 
-<img src="[https://user-images.githubusercontent.com/16319829/81180309-2b51f000-8fee-11ea-8a78-ddfe8c3412a7.png](https://github.com/jacklowrie/piazza-bot/blob/main/demo.gif)" width=50% height=50%>
+<img src="https://github.com/jacklowrie/piazza-bot/blob/main/demo.gif" width=100% height=100%>
 
 ## Installation (adding to your workspace, and updates)
 This app isn't registered through the slack app directory. For now, it's meant
