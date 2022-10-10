@@ -3,7 +3,9 @@ PiazzaBot is a simple slack bot that makes discussing posts on Piazza easier.
 When a post is mentioned by ID, PiazzaBot will respond with a link to that
 post.
 
-***Note**: I am not affiliated with or endorsed by Piazza in any way. Neither
+<img src="https://github.com/jacklowrie/piazza-bot/blob/main/demo.gif" width=100% height=100%>
+
+***Note**: I am not affiliated with or endorsed by Piazza or Slack in any way. Neither
 is this bot.
 
 ## Installation (adding to your workspace, and updates)
@@ -14,6 +16,7 @@ we need to do two things:
 2. Set the app up on your host.
 3. Once PiazzaBot is up and running, add it to any channel you want to use in.
 
+>>>>>>> main
 ### Register the app (3-5 min)
 1. _[Register a new app](https://api.slack.com/apps?new_app=1) for your
 workspace._ Open that link (in a new window/tab). Choose to register the app
