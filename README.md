@@ -41,7 +41,7 @@ Alternatively, if you need to modify the app for your workspace, fork instead.
 required modules from `requirements.txt`. There's an install script `install.sh`
 which contains the commands you'll need to run. Either run each command
 individually, or try running the script **make sure python3 is installed on
-your systembefore running**.
+your system before running**.
 3. _Add tokens._ create a `.env` file from `.env-sample` and add the
 corresponding tokens you noted when registering the app.
 4. _Add Course ID._ Go to your course's dashboard (if you're viewing a question,
