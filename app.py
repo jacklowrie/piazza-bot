@@ -22,14 +22,27 @@ def post_link(say, context, event):
     for match in context['matches']:
         url = posts_url + match
 
+        blocks = [{
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": f"<{url}|View post {match} on Piazza>"
+            }
+
+        }]
+
         thread_ts = event.get("thread_ts", None)
         if thread_ts == None:
-            say(text = url, 
+            say(
+                blocks = blocks, 
                 thread_ts = event.get("ts"), 
-                reply_broadcast = True)
+                reply_broadcast = True
+            )
         else:
-            say(text = url, 
-                thread_ts = thread_ts)
+            say(
+                blocks = blocks, 
+                thread_ts = thread_ts
+            )
 
 
 # Run the app
