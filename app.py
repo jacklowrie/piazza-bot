@@ -9,7 +9,7 @@ import re
 # Make the app
 load_dotenv()
 
-app = App(token=os.environ.get("SLACK_BOT_TOKEN"))
+app = App(token = os.environ.get("SLACK_BOT_TOKEN"))
 
 base_url = "https://piazza.com/class/%s" % os.environ.get("COURSE_ID")
 posts_url = f"{base_url}/post/" 
@@ -22,9 +22,28 @@ def post_link(say, context, event):
     for match in context['matches']:
         url = posts_url + match
 
+        blocks = [{
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": f"<{url}|View post {match} on Piazza>"
+            }
+
+        }]
+
         thread_ts = event.get("thread_ts", None)
-        # say() sends a message to the channel where the event was triggered
-        say(text=url, thread_ts=thread_ts)
+        if thread_ts == None:
+            say(
+                blocks = blocks, 
+                thread_ts = event.get("ts"), 
+                reply_broadcast = True
+            )
+        else:
+            say(
+                blocks = blocks, 
+                thread_ts = thread_ts
+            )
+
 
 # Run the app
 if __name__ == "__main__":
