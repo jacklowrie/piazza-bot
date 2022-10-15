@@ -19,30 +19,25 @@ posts_url = f"{base_url}/post/"
 # https://regex101.com/r/eMmguY/1
 @app.message(re.compile(r"@(\d+\b)"))
 def post_link(say, context, event):
+    # build message contents
+    text = ""
     for match in context['matches']:
         url = posts_url + match
+        text += f"<{url}|View post {match} on Piazza>\n"
 
-        blocks = [{
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": f"<{url}|View post {match} on Piazza>"
-            }
-
-        }]
-
-        thread_ts = event.get("thread_ts", None)
-        if thread_ts == None:
-            say(
-                blocks = blocks, 
-                thread_ts = event.get("ts"), 
-                reply_broadcast = True
-            )
-        else:
-            say(
-                blocks = blocks, 
-                thread_ts = thread_ts
-            )
+    # send the message
+    thread_ts = event.get("thread_ts", None)
+    if thread_ts == None:
+        say(
+            text = text.strip("\n"), 
+            thread_ts = event.get("ts"), 
+            reply_broadcast = True
+        )
+    else:
+        say(
+            blocks = text.strip("\n"), 
+            thread_ts = thread_ts
+        )
 
 
 # Run the app
