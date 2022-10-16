@@ -10,9 +10,9 @@ import logging
 import re
 from tinydb import TinyDB, Query
 
-logging.basicConfig(level=logging.ERROR)
 # Make the app
 load_dotenv()
+logging.basicConfig(level=logging.ERROR)
 
 app = App(token = os.environ.get("SLACK_BOT_TOKEN"))
 db = TinyDB('data/db.json')
