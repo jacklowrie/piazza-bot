@@ -33,7 +33,6 @@ posts_url = "" if c == None else base_url + c["forum"] + "/post/"
 def update_forum_id(ack, respond, command, context):
     ack()
     
-
     team_id = context['team_id']
     forum_id = command['text']
     
@@ -41,6 +40,7 @@ def update_forum_id(ack, respond, command, context):
         {'workspace': team_id, 'forum': forum_id },
         Course.workspace == team_id
     )
+
     global posts_url
     posts_url = base_url + forum_id + "/post/"
 
