@@ -18,6 +18,11 @@ app = App(token = os.environ.get("SLACK_BOT_TOKEN"))
 db = TinyDB('data/db.json')
 Course = Query()
 
+error = "Sorry, the forum id hasn't been set! "
+error += "You can set it via slash command:\n"
+error += "`/piazza-update-id [course_id]`\n"
+error += "You can find the course id in any url on your piazza forum. "
+error += "it'll be the long alphanumeric string."
 
 base_url = "https://piazza.com/class/"
 c = db.get(doc_id = 1)
@@ -51,12 +56,6 @@ def post_link(say, context, event, client):
     c = db.get((Course.workspace == context["team_id"]))
 
     if c == None:
-        error = "Sorry, the forum id hasn't been set! "
-        error += "You can set it via slash command:\n"
-        error += "`/piazza-update-id [course_id]`\n"
-        error += "You can find the course id in any url on your piazza forum. "
-        error += "it'll be the long alphanumeric string."
-
         client.chat_postEphemeral(
             text = error,
             channel = context["channel_id"],
