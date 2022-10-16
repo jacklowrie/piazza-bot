@@ -46,7 +46,8 @@ your system before running**.
 corresponding tokens you noted when registering the app.
 4. _Add Course ID._ Go to your course's dashboard (if you're viewing a question,
 click the logo). add the long alphanumeric string to your `.env` as the `COURSE_ID`.
-5. _Run the app._ Run the app! `python app.py`
+5. create new directory `data/` and a blank file `db.json` inside of it.
+6. _Run the app._ Run the app! `python app.py`
 
 ## Contributing
 Still thinking about the ideal workflow, however I'd like to keep PM on
