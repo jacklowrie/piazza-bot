@@ -18,12 +18,16 @@ app = App(token = os.environ.get("SLACK_BOT_TOKEN"))
 db = TinyDB('data/db.json')
 Course = Query()
 
+
 base_url = "https://piazza.com/class/"
+c = db.get(doc_id = 1)
+posts_url = "" if c == None else base_url + c["forum"] + "/post/"
 
 # Provides a means of setting the forum ID from a running app.
 @app.command("/piazza-update-id")
 def update_forum_id(ack, respond, command, context):
     ack()
+    
 
     team_id = context['team_id']
     forum_id = command['text']
@@ -32,8 +36,10 @@ def update_forum_id(ack, respond, command, context):
         {'workspace': team_id, 'forum': forum_id },
         Course.workspace == team_id
     )
+    global posts_url
+    posts_url = base_url + forum_id + "/post/"
 
-    respond(f"Updated forum! new id is {command['text']}")
+    respond(f"Updated forum! new id is {forum_id}",)
 
 
 # Listens for any message with a piazza tag in it. Piazza tags take the form
@@ -41,9 +47,22 @@ def update_forum_id(ack, respond, command, context):
 # 
 # https://regex101.com/r/eMmguY/1
 @app.message(re.compile(r"@(\d+\b)"))
-def post_link(say, context, event):
+def post_link(say, context, event, client):
     c = db.get((Course.workspace == context["team_id"]))
-    posts_url = base_url + c["workspace"] + "/post/"
+
+    if c == None:
+        error = "Sorry, the forum id hasn't been set! "
+        error += "You can set it via slash command:\n"
+        error += "`/piazza-update-id [course_id]`\n"
+        error += "You can find the course id in any url on your piazza forum. "
+        error += "it'll be the long alphanumeric string."
+
+        client.chat_postEphemeral(
+            text = error,
+            channel = context["channel_id"],
+            user = context["user_id"]
+        )
+        return
     
     # build message contents
     text = ""
