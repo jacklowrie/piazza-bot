@@ -25,8 +25,7 @@ error += "You can find the course id in any url on your piazza forum. "
 error += "it'll be the long alphanumeric string."
 
 base_url = "https://piazza.com/class/"
-c = db.get(doc_id = 1)
-posts_url = "" if c == None else base_url + c["forum"] + "/post/"
+
 
 # Provides a means of setting the forum ID from a running app.
 @app.command("/piazza-update-id")
@@ -40,9 +39,6 @@ def update_forum_id(ack, respond, command, context):
         {'workspace': team_id, 'forum': forum_id },
         Course.workspace == team_id
     )
-
-    global posts_url
-    posts_url = base_url + forum_id + "/post/"
 
     respond(f"Updated forum! new id is {forum_id}",)
 
@@ -62,7 +58,7 @@ def post_link(say, context, event, client):
             user = context["user_id"]
         )
         return
-    
+    posts_url = base_url + c["forum"] + "/post/"
     # build message contents
     text = ""
     for match in context['matches']:
