@@ -16,7 +16,8 @@ logging.basicConfig(level=logging.ERROR)
 
 app = App(token = os.environ.get("SLACK_BOT_TOKEN"))
 db = TinyDB('data/db.json')
-Course = Query()
+Q = Query()
+cache = {}
 
 error = "Sorry, the forum id hasn't been set! "
 error += "You can set it via slash command:\n"
@@ -25,24 +26,24 @@ error += "You can find the course id in any url on your piazza forum. "
 error += "it'll be the long alphanumeric string."
 
 base_url = "https://piazza.com/class/"
-c = db.get(doc_id = 1)
-posts_url = "" if c == None else base_url + c["forum"] + "/post/"
 
 # Provides a means of setting the forum ID from a running app.
 @app.command("/piazza-update-id")
 def update_forum_id(ack, respond, command, context):
+    global cache
     ack()
     
-    team_id = context['team_id']
+    workspace = context['team_id']
     forum_id = command['text']
     
-    db.upsert(
-        {'workspace': team_id, 'forum': forum_id },
-        Course.workspace == team_id
-    )
+    # update in mem
+    cache[workspace] = forum_id
 
-    global posts_url
-    posts_url = base_url + forum_id + "/post/"
+    # update in file
+    db.upsert(
+        {'workspace': workspace, 'forum': forum_id },
+        Q.workspace == workspace
+    )
 
     respond(f"Updated forum! new id is {forum_id}",)
 
@@ -53,16 +54,19 @@ def update_forum_id(ack, respond, command, context):
 # https://regex101.com/r/eMmguY/1
 @app.message(re.compile(r"@(\d+\b)"))
 def post_link(say, context, event, client):
-    c = db.get((Course.workspace == context["team_id"]))
+    global cache
+    forum_id = cache.get(context["team_id"], None)
 
-    if c == None:
+    if forum_id == None:
         client.chat_postEphemeral(
             text = error,
             channel = context["channel_id"],
             user = context["user_id"]
         )
         return
-    
+
+    posts_url = base_url + forum_id + "/post/"
+
     # build message contents
     text = ""
     for match in context['matches']:
@@ -96,4 +100,8 @@ def cleanup(signal_received, frame):
 # Run the app
 if __name__ == "__main__":
     signal(SIGINT, cleanup)
+
+    for record in db:
+        cache[record['workspace']] = record['forum']
+
     SocketModeHandler(app, os.environ["SLACK_APP_TOKEN"]).start()
