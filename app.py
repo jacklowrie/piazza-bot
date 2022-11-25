@@ -13,14 +13,14 @@ from sqlalchemy.engine import Engine
 import re
 
 import logging
+
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
-db_host, db_user, db_pass, db_port, db_name = (
+db_host, db_user, db_pass, db_name = (
     os.environ.get("DB_HOST"),
     os.environ.get("DB_USER"),
     os.environ.get("DB_PASS"),
-    os.environ.get("DB_PORT", 3306),
     os.environ.get("DB_NAME")
 )
 
@@ -30,7 +30,8 @@ client_id, client_secret, signing_secret = (
     os.environ["SLACK_SIGNING_SECRET"],
 )
 
-connection = f"mysql+mysqldb://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
+connection = f"mysql+mysqldb://{db_user}:{db_pass}@{db_host}/{db_name}"
+print(connection)
 
 engine: Engine = sqlalchemy.create_engine(connection)
 installation_store = SQLAlchemyInstallationStore(
@@ -84,6 +85,7 @@ def update_forum_id(ack, respond, command, context):
     cache[workspace] = forum_id
 
     respond(f"Updated forum! new id is {forum_id}", )
+
 
 @app.message("thunder")
 def post_link(say, context, event, client):
