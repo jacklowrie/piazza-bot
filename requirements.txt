@@ -1,3 +1,1 @@
 slack_bolt
-python-dotenv
-tinydb
