@@ -11,10 +11,13 @@ import re
 from tinydb import TinyDB, Query
 
 # Make the app
-load_dotenv()
 logging.basicConfig(level=logging.ERROR)
 
-app = App(token = os.environ.get("SLACK_BOT_TOKEN"))
+app = App(
+    token=os.environ.get("SLACK_BOT_TOKEN"),
+    signing_secret=os.environ.get("SLACK_SIGNING_SECRET")
+)
+
 db = TinyDB('data/db.json')
 Q = Query()
 cache = {}
@@ -33,20 +36,24 @@ base_url = "https://piazza.com/class/"
 def update_forum_id(ack, respond, command, context):
     global cache
     ack()
-    
+
     workspace = context['team_id']
     forum_id = command['text']
-    
+
     # update in mem
     cache[workspace] = forum_id
 
     # update in file
     db.upsert(
-        {'workspace': workspace, 'forum': forum_id },
+        {'workspace': workspace, 'forum': forum_id},
         Q.workspace == workspace
     )
 
-    respond(f"Updated forum! new id is {forum_id}",)
+    respond(f"Updated forum! new id is {forum_id}", )
+
+@app.message("thunder")
+def post_link(say, context, event, client):
+    say("lightning")
 
 
 # Listens for any message with a piazza tag in it. Piazza tags take the form
@@ -60,14 +67,13 @@ def post_link(say, context, event, client):
 
     if forum_id == None:
         client.chat_postEphemeral(
-            text = error,
-            channel = context["channel_id"],
-            user = context["user_id"]
+            text=error,
+            channel=context["channel_id"],
+            user=context["user_id"]
         )
         return
 
     posts_url = base_url + forum_id + "/post/"
-
 
     # build message contents
     text = ""
@@ -79,14 +85,14 @@ def post_link(say, context, event, client):
     thread_ts = event.get("thread_ts", None)
     if thread_ts == None:
         say(
-            text = text.strip("\n"), 
-            thread_ts = event.get("ts"), 
-            reply_broadcast = True
+            text=text.strip("\n"),
+            thread_ts=event.get("ts"),
+            reply_broadcast=True
         )
     else:
         say(
-            text = text.strip("\n"), 
-            thread_ts = thread_ts
+            text=text.strip("\n"),
+            thread_ts=thread_ts
         )
 
 
@@ -96,7 +102,6 @@ def cleanup(signal_received, frame):
     db.close()
     print("goodbye!")
     exit(0)
-
 
 
 # Run the app
