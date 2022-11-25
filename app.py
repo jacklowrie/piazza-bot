@@ -88,7 +88,7 @@ def update_forum_id(ack, respond, command, context):
 
 
 @app.message("thunder")
-def post_link(say, context, event, client):
+def post_link(say):
     say("lightning")
 
 
@@ -101,7 +101,7 @@ def post_link(say, context, event, client):
     global cache
     forum_id = cache.get(context["team_id"], None)
 
-    if forum_id == None:
+    if forum_id is None:
         client.chat_postEphemeral(
             text=error,
             channel=context["channel_id"],
@@ -119,7 +119,7 @@ def post_link(say, context, event, client):
 
     # send the message
     thread_ts = event.get("thread_ts", None)
-    if thread_ts == None:
+    if thread_ts is None:
         say(
             text=text.strip("\n"),
             thread_ts=event.get("ts"),
