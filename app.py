@@ -59,7 +59,16 @@ app = App(
         client_id=client_id,
         client_secret=client_secret,
         state_store=oauth_state_store,
-    ),
+        scopes=[
+            "chat:write.public",
+            "chat:write",
+            "channels:history",
+            "groups:history",
+            "im:history",
+            "mpim:history",
+            "commands"
+        ]
+    )
 )
 cache = {}
 
