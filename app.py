@@ -9,6 +9,7 @@ from slack_sdk.oauth.state_store.sqlalchemy import SQLAlchemyOAuthStateStore
 
 import sqlalchemy
 from sqlalchemy.engine import Engine
+from urllib import parse
 
 import re
 
@@ -20,7 +21,7 @@ logger = logging.getLogger(__name__)
 db_host, db_user, db_pass, db_name = (
     os.environ.get("DB_HOST"),
     os.environ.get("DB_USER"),
-    os.environ.get("DB_PASS"),
+    parse.quote_plus(os.environ.get("DB_PASS")),
     os.environ.get("DB_NAME")
 )
 
@@ -31,7 +32,6 @@ client_id, client_secret, signing_secret = (
 )
 
 connection = f"mysql+mysqldb://{db_user}:{db_pass}@{db_host}/{db_name}"
-print(connection)
 
 engine: Engine = sqlalchemy.create_engine(connection)
 installation_store = SQLAlchemyInstallationStore(
