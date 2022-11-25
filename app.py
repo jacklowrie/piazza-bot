@@ -31,7 +31,7 @@ client_id, client_secret, signing_secret = (
     os.environ["SLACK_SIGNING_SECRET"],
 )
 
-connection = f"mysql+mysqldb://{db_user}:{db_pass}@{db_host}/{db_name}"
+connection = f"mysql+pymysql://{db_user}:{db_pass}@{db_host}/{db_name}"
 
 engine: Engine = sqlalchemy.create_engine(connection)
 installation_store = SQLAlchemyInstallationStore(
