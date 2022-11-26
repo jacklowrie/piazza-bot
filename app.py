@@ -105,7 +105,7 @@ base_url = "https://piazza.com/class/"
 # Provides a means of setting the forum ID from a running app.
 @app.command("/piazza-update-id")
 def update_forum_id(ack, respond, command, context):
-    logger.info("in command handler.")
+    logging.warning("in command handler.")
     global cache
     ack()
 
@@ -114,13 +114,13 @@ def update_forum_id(ack, respond, command, context):
 
     # update in mem
     cache[workspace_id] = forum_id
-    logger.info(f"after cache insert. cache[{workspace_id}] should be {forum_id}, is {cache[workspace_id]}")
+    logging.info(f"after cache insert. cache[{workspace_id}] should be {forum_id}, is {cache[workspace_id]}")
     c = Course(workspace=workspace_id, forum=forum_id)
     with Session(engine) as session:
-        logger.info(f"in session thing. course is: {c}")
+        logging.info(f"in session thing. course is: {c}")
         session.add(c)
         session.commit()
-        logger.info("after commit")
+        logging.info("after commit")
 
     respond(f"Updated forum! new id is {forum_id}", )
 
