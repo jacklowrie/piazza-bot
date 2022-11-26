@@ -3,11 +3,12 @@ PiazzaBot is a simple slack bot that makes discussing posts on Piazza easier.
 When a post is mentioned by ID, PiazzaBot will respond with a link to that
 post.
 
-<img src="https://github.com/jacklowrie/piazza-bot/blob/main/demo.gif" width=100% height=100%>
+<a href="https://piazza-bot.onrender.com/slack/install"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
 
 **\*Note**: I am not affiliated with or endorsed by Piazza or Slack in any way. Neither
 is this bot.
 
+<<<<<<< HEAD
 ## Installation (adding to your workspace, and updates)
 This app isn't registered through the slack app directory. For now, it's meant
 to be used by one workspace per install/instance. To add to your workspace,
@@ -48,6 +49,10 @@ corresponding tokens you noted when registering the app.
 click the logo). add the long alphanumeric string to your `.env` as the `COURSE_ID`.
 5. create new directory `data/` and a blank file `db.json` inside of it.
 6. _Run the app._ Run the app! `python app.py`
+=======
+## Installation
+PiazzaBot now supports multiple workspaces, so installation is very straightforward. Just click the button above.
+>>>>>>> main
 
 ## Contributing
 Still thinking about the ideal workflow, however I'd like to keep PM on
@@ -61,11 +66,3 @@ for more.
 ## Development
 PiazzaBot is built using [Slack's Bolt framework](https://github.com/SlackAPI/bolt-python).
 As such, most developer documentation can be found there.
-
-Because the app uses socket mode, it isn't really possible to have multiple
-developers working on the bot in the same workspace. So, the best way to set
-up this app for local development is to:
-1. create a test workspace (so changes don't interrupt a real workspace)
-2. Follow the installation instructions above, but register the app to that
-workspace instead. Thanks to socket mode, you can run the app on your computer
-and it will work in that test workspace!
