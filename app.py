@@ -184,8 +184,6 @@ def cleanup(signal_received, frame):
 if __name__ == "__main__":
     signal(SIGINT, cleanup)
 
-    global cache
-    global engine
     with Session(engine) as session:
         courses = session.query(Course)
         for course in courses:
