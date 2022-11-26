@@ -9,6 +9,9 @@ from slack_sdk.oauth.state_store.sqlalchemy import SQLAlchemyOAuthStateStore
 
 import sqlalchemy
 from sqlalchemy.engine import Engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, String
+from sqlalchemy.orm import Session
 from urllib import parse
 
 import re
@@ -18,31 +21,31 @@ import logging
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
+# Set up DB
 db_host, db_user, db_pass, db_name = (
     os.environ.get("DB_HOST"),
     os.environ.get("DB_USER"),
     parse.quote_plus(os.environ.get("DB_PASS")),
     os.environ.get("DB_NAME")
 )
-
 client_id, client_secret, signing_secret = (
     os.environ["SLACK_CLIENT_ID"],
     os.environ["SLACK_CLIENT_SECRET"],
     os.environ["SLACK_SIGNING_SECRET"],
 )
-
 connection = f"mysql+pymysql://{db_user}:{db_pass}@{db_host}/{db_name}"
-
 engine: Engine = sqlalchemy.create_engine(connection)
+
+# Set up Oauth backend
 installation_store = SQLAlchemyInstallationStore(
     client_id=client_id,
     engine=engine,
-    logger=logger,
+    logger=logger
 )
 oauth_state_store = SQLAlchemyOAuthStateStore(
     expiration_seconds=120,
     engine=engine,
-    logger=logger,
+    logger=logger
 )
 
 try:
@@ -51,6 +54,24 @@ except Exception as e:
     installation_store.metadata.create_all(engine)
     oauth_state_store.metadata.create_all(engine)
 
+# Set up custom table
+Base = declarative_base()
+
+
+class Course(Base):
+    __tablename__ = 'courses'
+    __table_args__ = {'schema': db_name}
+
+    workspace = Column("workspace", String(32), nullable=False, primary_key=True)
+    forum = Column("forum", String(32), nullable=False)
+
+    def __repr__(self):
+        return "Course({0}, {1})".format(self.workspace, self.forum)
+
+
+Base.metadata.create_all(engine)
+
+# Set up app
 app = App(
     token=os.environ.get("SLACK_BOT_TOKEN"),
     signing_secret=signing_secret,
@@ -87,11 +108,16 @@ def update_forum_id(ack, respond, command, context):
     global cache
     ack()
 
-    workspace = context['team_id']
+    workspace_id = context['team_id']
     forum_id = command['text']
 
     # update in mem
-    cache[workspace] = forum_id
+    cache[workspace_id] = forum_id
+
+    c = Course(workspace=workspace_id, forum=forum_id)
+    with Session(engine) as session:
+        session.add(c)
+        session.commit()
 
     respond(f"Updated forum! new id is {forum_id}", )
 
