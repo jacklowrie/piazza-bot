@@ -3,6 +3,8 @@ PiazzaBot is a simple slack bot that makes discussing posts on Piazza easier.
 When a post is mentioned by ID, PiazzaBot will respond with a link to that
 post.
 
+<a href="https://slack.com/oauth/v2/authorize?client_id=4080246706931.4080375380706&scope=chat:write.public,chat:write,channels:history,groups:history,im:history,mpim:history,commands&user_scope="><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+
 <img src="https://github.com/jacklowrie/piazza-bot/blob/main/demo.gif" width=100% height=100%>
 
 **\*Note**: I am not affiliated with or endorsed by Piazza or Slack in any way. Neither
