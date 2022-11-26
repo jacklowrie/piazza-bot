@@ -118,7 +118,7 @@ def update_forum_id(ack, respond, command, context):
     c = Course(workspace=workspace_id, forum=forum_id)
     with Session(engine) as session:
         logging.info(f"in session thing. course is: {c}")
-        session.add(c)
+        session.merge(c)
         session.commit()
         logging.info("after commit")
 
