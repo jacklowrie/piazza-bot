@@ -1,8 +1,10 @@
 import os
+
 from signal import signal, SIGINT
 from sys import exit
 
 from slack_bolt import App
+
 from slack_bolt.oauth.oauth_settings import OAuthSettings
 from slack_sdk.oauth.installation_store.sqlalchemy import SQLAlchemyInstallationStore
 from slack_sdk.oauth.state_store.sqlalchemy import SQLAlchemyOAuthStateStore
@@ -128,7 +130,7 @@ def update_forum_id(ack, respond, command, context):
 # "@123", where the number is the id of a post on Piazza.
 #
 # https://regex101.com/r/eMmguY/1
-@app.message(re.compile(r"@(\d+\b)"))
+@app.message(re.compile(r"@(\d+[,|\ |\n|.|?|\r])"))
 def post_link(say, context, event, client):
     global cache
     forum_id = cache.get(context["team_id"], None)
