@@ -96,9 +96,9 @@ def update_forum_id(ack, respond, command, context):
     respond(f"Updated forum! new id is {forum_id}", )
 
 
-@app.message("thunder")
+@app.event("app_mention")
 def post_link(say):
-    say("lightning")
+    say("You rang?")
 
 
 # Listens for any message with a piazza tag in it. Piazza tags take the form
