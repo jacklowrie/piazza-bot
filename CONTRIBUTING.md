@@ -22,11 +22,10 @@ if appropriate).
 
 ## Branch Structure
 I'm working my way towards a more traditional GitFlow.
-- `develop` is the work horse. As features are completed, they're merged into
-`develop`. When a release is ready, a PR is opened from `develop` to `main`.
-- `main` doesn't get commits directly (beyond docs/github config etc), but 
-instead gets pull-requests from `develop`. These PRs should include 
-fully-functional features.
+- `main` is the primary branch. Only fully-functional PRs should be opened to main.
+- `production` is the production branch. It should never be pushed to directly, and
+PRs should only be opened from `main`. Any commits/PRs are automatically and
+immediately deployed.
 - `feature-[*]` Branches with "feature" prepended are feature branches. Most work
 happens in these.
 - I'm really hoping we never need a `hotfix`, but if we do, we'll make it then.
