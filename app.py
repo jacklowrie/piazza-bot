@@ -12,6 +12,7 @@ from sqlalchemy.engine import Engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import Session
+from sqlalchemy import select
 from urllib import parse
 
 import re
@@ -92,6 +93,11 @@ app = App(
     )
 )
 cache = {}
+
+with Session(engine) as session:
+    courses = session.query(Course)
+    for course in courses:
+        cache[course.workspace] = course.forum
 
 error = "Sorry, the forum id hasn't been set! "
 error += "You can set it via slash command:\n"
