@@ -92,12 +92,6 @@ app = App(
         ]
     )
 )
-cache = {}
-
-with Session(engine) as session:
-    courses = session.query(Course)
-    for course in courses:
-        cache[course.workspace] = course.forum
 
 error = "Sorry, the forum id hasn't been set! "
 error += "You can set it via slash command:\n"
@@ -105,6 +99,7 @@ error += "`/piazza-update-id [course_id]`\n"
 error += "You can find the course id in any url on your piazza forum. "
 error += "it'll be the long alphanumeric string."
 
+cache = {}
 base_url = "https://piazza.com/class/"
 
 
@@ -129,11 +124,6 @@ def update_forum_id(ack, respond, command, context):
         logging.info("after commit")
 
     respond(f"Updated forum! new id is {forum_id}", )
-
-
-@app.event("app_mention")
-def post_link(say):
-    say("You rang?")
 
 
 # Listens for any message with a piazza tag in it. Piazza tags take the form
@@ -178,11 +168,29 @@ def post_link(say, context, event, client):
 
 # exit handler
 def cleanup(signal_received, frame):
-    print("\nShutting down PiazzaBot...")
-    print("goodbye!")
+    logging.info("Shutting down PiazzaBot...")
+
+    global cache
+    global engine
+    with Session(engine) as session:
+        for workspace in cache:
+            course = Course(workspace=workspace, forum=cache[workspace])
+            session.merge(course)
+        session.commit()
+
+    logging.info("goodbye!")
     exit(0)
 
 
 # Run the app
 if __name__ == "__main__":
+    signal(SIGINT, cleanup)
+
+    global cache
+    global engine
+    with Session(engine) as session:
+        courses = session.query(Course)
+        for course in courses:
+            cache[course.workspace] = course.forum
+
     app.start(port=int(os.environ.get("PORT", 443)))
