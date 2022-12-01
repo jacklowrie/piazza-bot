@@ -130,8 +130,13 @@ def update_forum_id(ack, respond, command, context):
 
 
 @app.message("thunder")
-def handle_message_events(say, body, logger):
+def handle_message_events(say, logger):
+    logger.info("heard thunder.")
     say("lightning")
+
+@app.event("message")
+def log_message(body, logger):
+    logger.info(body)
 
 # Listens for any message with a piazza tag in it. Piazza tags take the form
 # "@123", where the number is the id of a post on Piazza.
