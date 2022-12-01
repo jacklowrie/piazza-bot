@@ -38,7 +38,7 @@ client_id, client_secret, signing_secret = (
     os.environ["SLACK_SIGNING_SECRET"],
 )
 connection = f"mysql+pymysql://{db_user}:{db_pass}@{db_host}/{db_name}"
-engine: Engine = sqlalchemy.create_engine(connection)
+engine: Engine = sqlalchemy.create_engine(connection, pool_pre_ping=True)
 
 # Set up Oauth backend
 installation_store = SQLAlchemyInstallationStore(
@@ -129,11 +129,15 @@ def update_forum_id(ack, respond, command, context):
     respond(f"Updated forum! new id is {forum_id}", )
 
 
+@app.message("thunder")
+def handle_message_events(say, body, logger):
+    say("lightning")
+
 # Listens for any message with a piazza tag in it. Piazza tags take the form
 # "@123", where the number is the id of a post on Piazza.
 #
 # https://regex101.com/r/eMmguY/1
-@app.message(re.compile(r"@(\d+\b)"))
+@app.message(re.compile(r"@(\d+[,|\ |\n|.|?|\r])"))
 def post_link(say, context, event, client, logger, body):
     global cache
     forum_id = cache.get(context["team_id"], None)
