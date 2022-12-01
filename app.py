@@ -133,7 +133,7 @@ def update_forum_id(ack, respond, command, context):
 # "@123", where the number is the id of a post on Piazza.
 #
 # https://regex101.com/r/eMmguY/1
-@app.message(re.compile(r"@(\d+[,|\ |\n|.|?|\r])"))
+@app.message(re.compile(r"@(\d+\b)"))
 def post_link(say, context, event, client, logger, body):
     global cache
     forum_id = cache.get(context["team_id"], None)
