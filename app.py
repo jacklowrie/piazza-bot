@@ -20,6 +20,9 @@ from urllib import parse
 import re
 
 import logging
+logging.basicConfig(level=logging.DEBUG)
+
+
 logger = logging.getLogger(__name__)
 
 # Set up DB
@@ -131,11 +134,15 @@ def update_forum_id(ack, respond, command, context):
 #
 # https://regex101.com/r/eMmguY/1
 @app.message(re.compile(r"@(\d+[,|\ |\n|.|?|\r])"))
-def post_link(say, context, event, client):
+def post_link(say, context, event, client, logger, body):
     global cache
     forum_id = cache.get(context["team_id"], None)
 
+    logger.info(f"Match detected. Team ID: {context["team_id"]} Forum ID: {forum_id}")
+    logger.info(body)
+
     if forum_id is None:
+        logger.info(f"Forum not set. First ID is: {context["matches"][0]}")
         client.chat_postEphemeral(
             text=error,
             channel=context["channel_id"],
@@ -148,6 +155,7 @@ def post_link(say, context, event, client):
     # build message contents
     text = ""
     for match in context['matches']:
+        logger.info(f"match: {match}")
         url = posts_url + match
         text += f"<{url}|View post {match} on Piazza>\n"
 
@@ -190,5 +198,8 @@ if __name__ == "__main__":
         courses = session.query(Course)
         for course in courses:
             cache[course.workspace] = course.forum
+
+    logger.info("cache built:")
+    logger.info(cache)
 
     app.start(port=int(os.environ.get("PORT", 443)))
