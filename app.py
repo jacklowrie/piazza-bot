@@ -20,7 +20,7 @@ from urllib import parse
 import re
 
 import logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 
 logger = logging.getLogger(__name__)
@@ -143,7 +143,7 @@ def post_link(say, context, event, client, logger, body):
 
     if forum_id is None:
         first_match = context["matches"][0]
-        logger.info(f"Forum not set. First ID is: {first_match}")
+        logger.warning(f"Forum not set. First ID is: {first_match}")
         client.chat_postEphemeral(
             text=error,
             channel=context["channel_id"],
