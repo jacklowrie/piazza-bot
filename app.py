@@ -137,12 +137,13 @@ def update_forum_id(ack, respond, command, context):
 def post_link(say, context, event, client, logger, body):
     global cache
     forum_id = cache.get(context["team_id"], None)
-
-    logger.info(f"Match detected. Team ID: {context["team_id"]} Forum ID: {forum_id}")
+    team_id = context["team_id"]
+    logger.info(f"Match detected. Team ID: {team_id} Forum ID: {forum_id}")
     logger.info(body)
 
     if forum_id is None:
-        logger.info(f"Forum not set. First ID is: {context["matches"][0]}")
+        first_match = context["matches"][0]
+        logger.info(f"Forum not set. First ID is: {first_match}")
         client.chat_postEphemeral(
             text=error,
             channel=context["channel_id"],
