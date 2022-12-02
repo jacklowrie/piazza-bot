@@ -20,8 +20,8 @@ from urllib import parse
 import re
 
 import logging
-logging.basicConfig(level=logging.INFO)
 
+logging.basicConfig(level=logging.INFO)
 
 logger = logging.getLogger(__name__)
 
@@ -134,15 +134,21 @@ def handle_message_events(say, logger):
     logger.info("heard thunder.")
     say("lightning")
 
+
 @app.event("message")
-def log_message(body, logger):
+def log_message(body, logger, message, context):
     logger.info(body)
+    logger.info("trying to access message:")
+    logger.info(message)
+    logger.info("trying to access context:")
+    logger.info(context)
+
 
 # Listens for any message with a piazza tag in it. Piazza tags take the form
 # "@123", where the number is the id of a post on Piazza.
 #
 # https://regex101.com/r/eMmguY/1
-@app.message(re.compile(r"@(\d+[,|\ |\n|.|?|\r])"))
+@app.message(re.compile(r'@(\d+[,|\ |\n|.|?|\r])'))
 def post_link(say, context, event, client, logger, body):
     global cache
     forum_id = cache.get(context["team_id"], None)
