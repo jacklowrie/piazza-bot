@@ -129,65 +129,11 @@ def update_forum_id(ack, respond, command, context):
     respond(f"Updated forum! new id is {forum_id}", )
 
 
-@app.message("thunder")
-def handle_message_events(say, logger):
-    logger.info("heard thunder.")
-    say("lightning")
-
-
-@app.event("message")
-def manual_message_match(body, logger, message, context, event, say):
-    logger.info(message["text"])
-    matches = re.findall(r'@(\d+[,|\ |\n|.|?|\r])', message["text"])
-    if not matches:
-        logger.info("no matches found")
-        return
-
-    logger.info(matches)
-
-    global cache
-    forum_id = cache.get(context["team_id"], None)
-    team_id = context["team_id"]
-    logger.info(f"Match detected. Team ID: {team_id} Forum ID: {forum_id}")
-    logger.info(body)
-
-    if forum_id is None:
-        first_match = context["matches"][0]
-        logger.warning(f"Forum not set. First ID is: {first_match}")
-        client.chat_postEphemeral(
-            text=error,
-            channel=context["channel_id"],
-            user=context["user_id"]
-        )
-        return
-
-    posts_url = base_url + forum_id + "/post/"
-    # build message contents
-    text = ""
-    for match in matches:
-        url = posts_url + match
-        text += f"<{url}|View post {match} on Piazza>\n"
-
-    # send the message
-    thread_ts = event.get("thread_ts", None)
-    if thread_ts is None:
-        say(
-            text=text.strip("\n"),
-            thread_ts=event.get("ts"),
-            reply_broadcast=True
-        )
-    else:
-        say(
-            text=text.strip("\n"),
-            thread_ts=thread_ts
-        )
-
-
 # Listens for any message with a piazza tag in it. Piazza tags take the form
 # "@123", where the number is the id of a post on Piazza.
 #
 # https://regex101.com/r/eMmguY/1
-@app.message(re.compile(r'@(\d+[,|\ |\n|.|?|\r])'))
+@app.message(re.compile(r'@(\d+[,|\ |\n|.|?|\r|\t]|\d+$)'))
 def regex_message_match(say, context, event, client, logger, body):
     global cache
     forum_id = cache.get(context["team_id"], None)
