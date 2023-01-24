@@ -197,7 +197,7 @@ from fastapi import FastAPI, Request
 
 api = FastAPI()
 
-@app.on_event("startup")
+@api.on_event("startup")
 async def startup_event():
     with Session(engine) as session:
         courses = session.query(Course)
