@@ -4,6 +4,7 @@ from signal import signal, SIGINT
 from sys import exit
 
 from slack_bolt import App
+from slack_bolt.adapter.fastapi import SlackRequestHandler
 
 from slack_bolt.oauth.oauth_settings import OAuthSettings
 from slack_sdk.oauth.installation_store.sqlalchemy import SQLAlchemyInstallationStore
@@ -95,6 +96,8 @@ app = App(
         ]
     )
 )
+app_handler = SlackRequestHandler(app)
+
 
 error = "Sorry, the forum id hasn't been set! "
 error += "You can set it via slash command:\n"
@@ -175,7 +178,7 @@ def regex_message_match(say, context, event, client, logger, body):
 
 
 # exit handler
-def cleanup(signal_received, frame):
+def cleanup():
     logging.info("Shutting down PiazzaBot...")
 
     global cache
@@ -187,13 +190,15 @@ def cleanup(signal_received, frame):
         session.commit()
 
     logging.info("goodbye!")
-    exit(0)
 
 
-# Run the app
-if __name__ == "__main__":
-    signal(SIGINT, cleanup)
 
+from fastapi import FastAPI, Request
+
+api = FastAPI()
+
+@app.on_event("startup")
+async def startup_event():
     with Session(engine) as session:
         courses = session.query(Course)
         for course in courses:
@@ -202,4 +207,20 @@ if __name__ == "__main__":
     logger.info("cache built:")
     logger.info(cache)
 
-    app.start(port=int(os.environ.get("PORT", 443)))
+@api.post("/slack/events")
+async def endpoint(req: Request):
+    return await app_handler.handle(req)
+
+
+@api.get("/slack/install")
+async def install(req: Request):
+    return await app_handler.handle(req)
+
+
+@api.get("/slack/oauth_redirect")
+async def oauth_redirect(req: Request):
+    return await app_handler.handle(req)
+
+@api.on_event("shutdown")
+def shutdown_event():
+    cleanup()
