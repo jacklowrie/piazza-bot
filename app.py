@@ -132,7 +132,7 @@ def update_forum_id(ack, respond, command, context):
 # Listens for any message with a piazza tag in it. Piazza tags take the form
 # "@123", where the number is the id of a post on Piazza.
 #
-# https://regex101.com/r/eMmguY/1
+# https://regex101.com/r/fBz50F/1
 @app.message(re.compile(r'@(\d+[,|\ |\n|.|?|\r|\t]|\d+$)'))
 def regex_message_match(say, context, event, client, logger, body):
     global cache
