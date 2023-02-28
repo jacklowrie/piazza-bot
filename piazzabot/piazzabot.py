@@ -70,16 +70,19 @@ def update_forum_id(ack, respond, command, context):
     workspace_id = context['team_id']
     forum_id = command['text']
 
-    # update in mem
-    cache[workspace_id] = forum_id
-    logging.info(f"after cache insert. cache[{workspace_id}] should be {forum_id}, is {cache[workspace_id]}")
-    c = Course(workspace=workspace_id, forum=forum_id)
+    if forum_id.isalnum() and len(forum_id) == 15:
+        # update in mem
+        cache[workspace_id] = forum_id
+        logging.info(f"after cache insert. cache[{workspace_id}] should be {forum_id}, is {cache[workspace_id]}")
 
-    with Session(dbengine) as session:
-        session.merge(c)
-        session.commit()
+        c = Course(workspace=workspace_id, forum=forum_id)
+        with Session(dbengine) as session:
+            session.merge(c)
+            session.commit()
 
-    respond(f"Updated forum! new id is {forum_id}", )
+        respond(f"Updated forum! new id is {forum_id}", )
+    else:
+        respond("Oops! that doesn't look like a forum id. Please try again.")
 
 
 # Listens for any message with a piazza tag in it. Piazza tags take the form
