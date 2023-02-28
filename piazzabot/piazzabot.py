@@ -10,8 +10,8 @@ from slack_sdk.oauth.state_store.sqlalchemy import SQLAlchemyOAuthStateStore
 
 from sqlalchemy.orm import Session
 
-from piazzabot.database import Base, Course, dbengine
-from piazzabot.constants import CLIENT_ID, CLIENT_SECRET, SIGNING_SECRET, ERROR_NO_FORUM_ID, BASE_URL
+from .database import Base, Course, dbengine
+from .constants import CLIENT_ID, CLIENT_SECRET, SIGNING_SECRET, ERROR_NO_FORUM_ID, BASE_URL
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

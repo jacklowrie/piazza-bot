@@ -1,4 +1,4 @@
-from constants import DB_HOST, DB_USER, DB_PASS, DB_NAME
+from .constants import DB_HOST, DB_USER, DB_PASS, DB_NAME
 
 import sqlalchemy
 from sqlalchemy.engine import Engine
